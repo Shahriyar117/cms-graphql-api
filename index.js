@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import express from "express";
-import schema from "./schema.js";
+import schema from "./graphql/schema.js";
 import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 

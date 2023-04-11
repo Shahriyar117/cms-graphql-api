@@ -10,8 +10,8 @@ import {
   GraphQLNonNull,
 } from "graphql";
 import { categories } from "../categories/data.js";
-import { authors } from "../authors/data.js";
 import { comments } from "../comments/data.js";
+import { getAllAuthors } from "../authors/query.js";
 
 const PostType = new GraphQLObjectType({
   name: "PostType",
@@ -28,6 +28,7 @@ const PostType = new GraphQLObjectType({
       author: {
         type: new GraphQLNonNull(AuthorType),
         resolve(parent, args) {
+          const authors = getAllAuthors();
           // return author associated with this post
           return authors.filter((author) =>
             author.posts.includes(parent.id)
