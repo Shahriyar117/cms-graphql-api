@@ -1,20 +1,26 @@
 import models from "../../database/models/index.js";
-//const models = require("../../database/models/");
 
-export default {
-  async getAllAuthors() {
-    const authors = await models.authors.findAll();
-    console.log(authors);
-    return authors;
-  },
-
-  async getAuthorById(authorId) {
-    const author = await models.authors.findOne({
-      where: {
-        id: authorId,
+export const getAllAuthors = async () => {
+  const authors = await models.authors.findAll({
+    include: [
+      {
+        model: models.posts,
       },
-    });
-    console.log(author);
-    return author;
-  },
+    ],
+  });
+  return authors;
+};
+
+export const getAuthorById = async (authorId) => {
+  const author = await models.authors.findOne({
+    where: {
+      id: authorId,
+    },
+    include: [
+      {
+        model: models.posts,
+      },
+    ],
+  });
+  return author;
 };

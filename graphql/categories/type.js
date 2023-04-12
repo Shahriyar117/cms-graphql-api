@@ -6,7 +6,6 @@ import {
   GraphQLList,
   GraphQLNonNull,
 } from "graphql";
-import { posts } from "../posts/data.js";
 
 const CategoryType = new GraphQLObjectType({
   name: "CategoryType",
@@ -18,13 +17,6 @@ const CategoryType = new GraphQLObjectType({
       slug: { type: new GraphQLNonNull(GraphQLString) },
       posts: {
         type: new GraphQLList(PostType),
-        resolve(parent, args) {
-          const postArray = posts.filter((post) => {
-            return post.categories.find((catId) => catId === parent.id);
-          });
-          // return all posts associated with this category
-          return postArray;
-        },
       },
     };
   },

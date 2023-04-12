@@ -1,14 +1,26 @@
-export const categories = [
-  {
-    id: "1",
-    name: "Frontend Development",
-    slug: "frontend_development",
-    posts: ["1"],
-  },
-  {
-    id: "2",
-    name: "Development",
-    slug: "development",
-    posts: ["1", "2"],
-  },
-];
+import models from "../../database/models/index.js";
+
+export const getAllCategories = async () => {
+  const categories = await models.categories.findAll({
+    include: [
+      {
+        model: models.posts,
+      },
+    ],
+  });
+  return categories;
+};
+
+export const getCategoryById = async (categoryId) => {
+  const category = await models.categories.findOne({
+    where: {
+      id: categoryId,
+    },
+    include: [
+      {
+        model: models.posts,
+      },
+    ],
+  });
+  return category;
+};

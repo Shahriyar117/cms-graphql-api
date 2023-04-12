@@ -1,15 +1,14 @@
 import CommentType from "./type.js";
 import { GraphQLList, GraphQLID } from "graphql";
-import { comments } from "./data.js";
+import { getAllComments, getCommentById } from "./data.js";
 
-export const getAllComments = {
+export const queryAllComments = {
   type: new GraphQLList(CommentType),
-  resolve: () => comments,
+  resolve: () => getAllComments(),
 };
 
-export const getCommentById = {
+export const queryCommentById = {
   type: CommentType,
   args: { id: { type: GraphQLID } },
-  resolve: (parent, { id }, context, info) =>
-    comments.find((comment) => comment.id == id),
+  resolve: (parent, { id }, context, info) => getCommentById(id),
 };

@@ -1,14 +1,14 @@
 import AuthorType from "./type.js";
 import { GraphQLList, GraphQLID } from "graphql";
-import AuthorDB from "./data.js";
+import { getAllAuthors, getAuthorById } from "./data.js";
 
-export const getAllAuthors = {
+export const queryAllAuthors = {
   type: new GraphQLList(AuthorType),
-  resolve: () => AuthorDB.getAllAuthors(),
+  resolve: () => getAllAuthors(),
 };
 
-export const getAuthorById = {
+export const queryAuthorById = {
   type: AuthorType,
   args: { id: { type: GraphQLID } },
-  resolve: (parent, { id }, context, info) => AuthorDB.getAuthorById(id),
+  resolve: (parent, { id }, context, info) => getAuthorById(id),
 };

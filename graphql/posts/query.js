@@ -1,15 +1,14 @@
 import PostType from "./type.js";
 import { GraphQLList, GraphQLID } from "graphql";
-import { posts } from "./data.js";
+import { getAllPosts, getPostById } from "./data.js";
 
-export const getAllPosts = {
+export const queryAllPosts = {
   type: new GraphQLList(PostType),
-  resolve: () => posts,
+  resolve: () => getAllPosts(),
 };
 
-export const getPostById = {
+export const queryPostById = {
   type: PostType,
   args: { id: { type: GraphQLID } },
-  resolve: (parent, { id }, context, info) =>
-    posts.find((post) => post.id == id),
+  resolve: (parent, { id }, context, info) => getPostById(id),
 };

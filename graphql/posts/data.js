@@ -1,30 +1,38 @@
-export const posts = [
-  {
-    id: "1",
-    title: "React",
-    slug: "react",
-    excerpt:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    featuredPost: true,
-    featuredImage: "",
-    author: "1",
-    categories: ["1", "2"],
-    comments: ["1"],
-  },
-  {
-    id: "2",
-    title: "Django",
-    slug: "django",
-    excerpt:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    featuredPost: true,
-    featuredImage: "",
-    author: "1",
-    categories: ["2"],
-    comments: ["2"],
-  },
-];
+import models from "../../database/models/index.js";
+
+export const getAllPosts = async () => {
+  const posts = await models.posts.findAll({
+    include: [
+      {
+        model: models.authors,
+      },
+      {
+        model: models.categories,
+      },
+      {
+        model: models.comments,
+      },
+    ],
+  });
+  return posts;
+};
+
+export const getPostById = async (postId) => {
+  const post = await models.posts.findOne({
+    where: {
+      id: postId,
+    },
+    include: [
+      {
+        model: models.authors,
+      },
+      {
+        model: models.categories,
+      },
+      {
+        model: models.comments,
+      },
+    ],
+  });
+  return post;
+};
