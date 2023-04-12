@@ -9,9 +9,6 @@ import {
   GraphQLBoolean,
   GraphQLNonNull,
 } from "graphql";
-import { categories } from "../categories/data.js";
-import { comments } from "../comments/data.js";
-import { getAllAuthors } from "../authors/query.js";
 
 const PostType = new GraphQLObjectType({
   name: "PostType",
@@ -27,31 +24,12 @@ const PostType = new GraphQLObjectType({
       featuredImage: { type: GraphQLString },
       author: {
         type: new GraphQLNonNull(AuthorType),
-        resolve(parent, args) {
-          const authors = getAllAuthors();
-          // return author associated with this post
-          return authors.filter((author) =>
-            author.posts.includes(parent.id)
-          )[0];
-        },
       },
       categories: {
         type: new GraphQLNonNull(new GraphQLList(CategoryType)),
-        resolve(parent, args) {
-          // return all categories associated with this post
-          return categories.filter((category) =>
-            category.posts.find((postId) => postId === parent.id)
-          );
-        },
       },
       comments: {
         type: new GraphQLList(CommentType),
-        resolve(parent, args) {
-          // return all comments associated with this post
-          return comments.filter((comment) =>
-            parent.comments.find((commentId) => commentId === comment.id)
-          );
-        },
       },
     };
   },
