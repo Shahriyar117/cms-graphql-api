@@ -1,8 +1,13 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
+
 import { queryAllAuthors, queryAuthorById } from "./authors/query.js";
 import { queryAllCategories, queryCategoryById } from "./categories/query.js";
 import { queryAllComments, queryCommentById } from "./comments/query.js";
 import { queryAllPosts, queryPostById } from "./posts/query.js";
+
+import { mutationCreateComment } from "./comments/mutation.js";
+import { mutationCreateAuthor } from "./authors/mutation.js";
+import { mutationCreateCategory } from "./categories/mutation.js";
 
 const rootQueryFields = {
   authors: queryAllAuthors,
@@ -15,9 +20,11 @@ const rootQueryFields = {
   comment: queryCommentById,
 };
 
-// const rootMutationFields = {
-//   createComment,
-// };
+const rootMutationFields = {
+  mutationCreateComment,
+  mutationCreateAuthor,
+  mutationCreateCategory,
+};
 
 const rootQuery = new GraphQLObjectType({
   name: "RootQuery",
@@ -25,15 +32,15 @@ const rootQuery = new GraphQLObjectType({
   fields: rootQueryFields,
 });
 
-// const rootMutation = new GraphQLObjectType({
-//   name: "RootMutation",
-//   description: "This is the root mutation",
-//   fields: rootMutationFields,
-// });
+const rootMutation = new GraphQLObjectType({
+  name: "RootMutation",
+  description: "This is the root mutation",
+  fields: rootMutationFields,
+});
 
 const schema = new GraphQLSchema({
   query: rootQuery,
-  //mutation: rootMutation,
+  mutation: rootMutation,
 });
 
 export default schema;

@@ -24,3 +24,14 @@ export const getCategoryById = async (categoryId) => {
   });
   return category;
 };
+
+export const createCategory = async ({ name }) => {
+  try {
+    const newCategory = await models.categories.create({
+      name,
+    });
+    return newCategory;
+  } catch (error) {
+    return error;
+  }
+};

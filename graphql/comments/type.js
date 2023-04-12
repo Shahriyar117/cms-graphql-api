@@ -15,7 +15,6 @@ const CommentType = new GraphQLObjectType({
       name: { type: new GraphQLNonNull(GraphQLString) },
       email: { type: new GraphQLNonNull(GraphQLString) },
       comment: { type: new GraphQLNonNull(GraphQLString) },
-      post: { type: new GraphQLNonNull(PostType) },
     };
   },
 });

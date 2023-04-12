@@ -24,3 +24,15 @@ export const getAuthorById = async (authorId) => {
   });
   return author;
 };
+
+export const createAuthor = async ({ name, bio }) => {
+  try {
+    const newAuthor = await models.authors.create({
+      name,
+      bio,
+    });
+    return newAuthor;
+  } catch (error) {
+    return error;
+  }
+};
