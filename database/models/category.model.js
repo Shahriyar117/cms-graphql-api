@@ -1,3 +1,5 @@
+const slugify = require("slugify");
+
 module.exports = (sequelize, DataTypes) => {
   const Category = sequelize.define(
     "categories",

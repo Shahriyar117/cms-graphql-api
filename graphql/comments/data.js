@@ -13,3 +13,17 @@ export const getCommentById = async (commentId) => {
   });
   return comment;
 };
+
+export const createComment = async ({ name, email, comment, postId }) => {
+  try {
+    const newComment = await models.comments.create({
+      name,
+      email,
+      comment,
+      postId,
+    });
+    return newComment;
+  } catch (error) {
+    return error;
+  }
+};

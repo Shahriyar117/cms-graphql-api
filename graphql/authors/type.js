@@ -14,7 +14,7 @@ const AuthorType = new GraphQLObjectType({
     return {
       id: { type: new GraphQLNonNull(GraphQLID) },
       name: { type: new GraphQLNonNull(GraphQLString) },
-      photo: { type: GraphQLString },
+      //photo: { type: GraphQLString },
       bio: { type: GraphQLString },
       posts: {
         type: new GraphQLList(PostType),
